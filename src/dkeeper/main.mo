@@ -10,7 +10,7 @@ actor Dkeeper {
       content : Text;
     } ;
 
-    var notes : List.List<Note> = List.nil<Note>();
+     stable var notes : List.List<Note> = List.nil<Note>(); //Persistency for when you resdeploy the application.Kind of like  database save.
 
 public func createNote(titleText : Text , contentText : Text){
       
