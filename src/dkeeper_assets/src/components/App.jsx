@@ -11,14 +11,20 @@ function App() {
   function addNote(newNote) {
     setNotes(prevNotes => {
       dkeeper.createNote(newNote.title,newNote.content);
-      return [...prevNotes, newNote];
+      return [newNote,...prevNotes]; //Unlike in JS List.push method in motoku pre-pends the object into the list so we have to reverse this part.
     });
   }
   useEffect(() => {
-    
-  })
+    fetchdata();
+  },[]);
+
+  async function fetchdata(){
+    const notesArray = await dkeeper.readNotes();
+    setNotes(notesArray)
+  }
 
   function deleteNote(id) {
+    dkeeper.removeNote(id);
     setNotes(prevNotes => {
       return prevNotes.filter((noteItem, index) => {
         return index !== id;

@@ -1,6 +1,7 @@
 import Text "mo:base/Text";
 import List "mo:base/List";
 import Debug "mo:base/Debug";
+import Nat "mo:base/Nat";
 
 actor Dkeeper {
     
@@ -25,6 +26,12 @@ public func createNote(titleText : Text , contentText : Text){
 public query func readNotes():  async [Note] { 
 //Using list is performancewise is not efficient on the blockchain so we use array
     return List.toArray(notes)
+};
+
+public func removeNote(id : Nat){
+    let listFront = List.take(notes,id) ; 
+    let listBack = List.drop(notes ,id+1);
+    notes := List.append(listFront,listBack);
 };
 
 
